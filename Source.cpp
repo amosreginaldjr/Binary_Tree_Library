@@ -1,68 +1,59 @@
 #include<iostream>
 using namespace std;
 
-template<typename Tdata>
-struct TreeNode;
+template <typename Tdata>
+class Tree;
 
 template<typename Tdata>
+class Tree
+{
+private: 
 	struct TreeNode
 	{
-		TreeNode* root;
-		TreeNode* parentOf; //maybe should be named "parent" not "parentOf
-		TreeNode* right;
-		Tdata data;
-		TreeNode* left;
-
-		void add_to_left(Tdata user_input);
-		void add_to_right(Tdata user_input);
-		
-		//
-		TreeNode();
-		
+		TreeNode* left = nullptr;
+		Tdata data = NULL;
+		TreeNode* right = nullptr;
+		//TreeNode* parent;
 	};
+private:
+	TreeNode* root_node;
 
-
+public:
+	Tree();
+	Tree(TreeNode* root_node);
+	void insert(Tdata user_input);
+};
 
 template<typename Tdata>
-TreeNode<Tdata>::TreeNode()
+Tree<Tdata>::Tree()
 {
-	root = new TreeNode<Tdata>; /*have to set root in the default constructor to
-								be equal to a new TreeNode (to be able to add data)*/
+
 }
 
 template<typename Tdata>
-void TreeNode<Tdata>::add_to_left(Tdata user_input)
+Tree<Tdata>::Tree(TreeNode* root_node)
 {
-	TreeNode* newNode = new TreeNode;
-	this->left = newNode;
-	newNode->data = user_input;
-	newNode->parentOf = this;
+	root_node = new TreeNode;
+	root_node->data = NULL;
+	root_node->left = nullptr;
+	root_node->right = nullptr;
 }
 
 template<typename Tdata>
-void TreeNode<Tdata>::add_to_right(Tdata user_input)
+void Tree<Tdata>::insert(Tdata user_input)
 {
 	TreeNode* newNode = new TreeNode;
-	this->right = newNode;
-	newNode->data = user_input;
-	newNode->parentOf = this;
+
+	if (root_node->data == NULL)
+		root_node->data = user_input;
+
+	//TreeNode* temp = root_node;
 }
 
 int main()
 {
-	TreeNode<int> build_tree;
-	build_tree.root->data = 5;
-	build_tree.root->add_to_left(3);
-	build_tree.root->add_to_right(7);
-	
-	//cout << build_tree.root->data << endl;
-	//cout << build_tree.root->left->data << ' ';
-	//cout << build_tree.root->right->data << endl;
-
-	//build_tree.root->left = new TreeNode<int>;
-	//build_tree.root->left->add_to_left(1);
-	//cout << build_tree.root->left->left->data << ' ';
-
+	Tree<int> tt;
+	tt.insert(5);
 
 	return 0;
 }
